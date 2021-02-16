@@ -55,17 +55,22 @@ router.post('/', validateAccount, async (req, res, next) => {
     };
 });
 
-router.get('/', async (req, res, next) => {
+router.put('/:id', validateId, validateAccount, async (req, res, next) => {
     try {
-
+        const { id } = req.params
+        const changes = req.body
+        const account = await Account.update(id, changes)
+        res.status(200).json((account))
     } catch (error) {
         next(error);
     };
 });
 
-router.get('/', async (req, res, next) => {
+router.delete('/:id', validateId, async (req, res, next) => {
     try {
-
+        const { id } = req.params
+        const account = await Account.remove(id)
+        res.status(200).json(account)
     } catch (error) {
         next(error);
     };

@@ -4,8 +4,8 @@ module.exports = {
     get,
     getById,
     create,
-    // update,
-    // remove,
+    update,
+    remove,
 }
 
 function get() {
@@ -23,3 +23,17 @@ function create(account) {
      })
 }
 
+function update (id, account) {
+    const accountId = id
+    return db('accounts').where('id', id).update(account)
+     .then(() => {
+         return db('accounts').where('id', accountId).first()
+     })
+}
+
+function remove (id) {
+    return db('accounts').where('id', id).del()
+     .then(() => {
+         return db('accounts')
+     })
+}
